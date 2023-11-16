@@ -1,0 +1,122 @@
+#include <iostream>
+#include <windows.h>
+using namespace std;
+
+class Rana
+{
+private:
+    string nombre;
+    int distRecorrida;
+    bool estaDormida;
+
+public:
+    Rana(string nombre);
+    int getDistancia();
+    void saltaErraticamente();
+    void avanza();
+    void retrocede();
+    void duerme();
+    void muestraAvance();
+    void salta();
+};
+
+Rana::Rana(string nombre)
+{
+    this->nombre = nombre;
+    this->distRecorrida = 0;
+    this->estaDormida = false;
+}
+
+int Rana::getDistancia()
+{
+    return distRecorrida;
+}
+
+void Rana::saltaErraticamente()
+{
+    int opcion;
+    opcion = rand() % 2;
+
+    if (opcion == 0)
+    {
+        distRecorrida += 2;
+    }
+    else
+    {
+        distRecorrida--;
+    }
+    estaDormida = false;
+}
+
+void Rana::duerme()
+{
+    estaDormida = true;
+}
+
+void Rana::muestraAvance()
+{
+    for (int nEspacios = 1; nEspacios <= distRecorrida; nEspacios++)
+    {
+        cout << " ";
+    }
+    if (estaDormida)
+        cout << "zZ";
+    else
+        cout << nombre;
+    cout << "\n";
+}
+
+void Rana::salta()
+{
+    int opcion;
+    opcion = rand() % 7;
+
+    switch (opcion)
+    {
+    case 0:
+    case 1:
+        saltaErraticamente();
+        break;
+    case 2:
+    case 3:
+        avanza();
+        break;
+    case 4:
+    case 5:
+        retrocede();
+        break;
+    case 6:
+        duerme();
+        break;
+    }
+}
+
+int main()
+{
+    srand(static_cast<unsigned int>(time(NULL));
+
+    Rana rana1 = Rana("R1");
+    Rana rana2 = Rana("R2");
+    Rana rana3 = Rana("R3");
+
+    cout << "\t\t\tCARRERA DE RANAS\n\n";
+    cout << "I-------------------------------------------M\n";
+
+    while (rana1.getDistancia() < 40 || rana2.getDistancia() < 40 || rana3.getDistancia() < 40)
+    {
+        rana1.salta();
+        rana1.muestraAvance();
+        rana2.salta();
+        rana2.muestraAvance();
+        rana3.salta();
+        rana3.muestraAvance();
+        cout << "\n\n";
+        Sleep(300); // Pausa el programa 300 milisegundos
+        system("cls"); // Limpia la pantalla
+        cout << "\t\t\tCARRERA DE RANAS\n\n";
+        cout << "I--------------------------------------------M\n";
+    }
+
+    cout << "\n\n\tFIN DE LA CARRERA\n";
+    system("pause");
+}
